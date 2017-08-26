@@ -1,0 +1,10 @@
+﻿@model DDona.OwinAuth.WebApp.ViewModel.LoginViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Login</h2>
+@if(!string.IsNullOrEmpty(Model.ReturnUrl))
+{
+    <p>Você será redirecionado para: @Model.ReturnUrl</p>
+}

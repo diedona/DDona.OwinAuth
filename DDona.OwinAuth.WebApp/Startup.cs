@@ -5,6 +5,7 @@ using Owin;
 using System.Web.Mvc;
 using System.Web.Routing;
 using DDona.OwinAuth.WebApp.App_Start;
+using DDona.OwinAuth.WebApp.Auth;
 
 [assembly: OwinStartup(typeof(DDona.OwinAuth.WebApp.Startup))]
 namespace DDona.OwinAuth.WebApp
@@ -13,6 +14,7 @@ namespace DDona.OwinAuth.WebApp
     {
         public void Configuration(IAppBuilder app)
         {
+            StartupAuth.ConfigureAuth(app);
             ConfigureMvc(app);
         }
 
