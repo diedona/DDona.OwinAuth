@@ -8,3 +8,21 @@
 {
     <p>Você será redirecionado para: @Model.ReturnUrl</p>
 }
+
+@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+{
+    @Html.ValidationSummary()
+    @Html.HiddenFor(x => x.ReturnUrl)
+
+    @Html.LabelFor(x => x.Username)
+    @Html.TextBoxFor(x => x.Username)
+
+    <br />
+
+    @Html.LabelFor(x => x.Password)
+    @Html.TextBoxFor(x => x.Password, new { type="password" })
+
+    <br />
+
+    <button type="submit">Ok!</button>
+}
