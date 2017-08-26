@@ -4,6 +4,7 @@ using Microsoft.Owin;
 using Owin;
 using System.Web.Mvc;
 using System.Web.Routing;
+using DDona.OwinAuth.WebApp.App_Start;
 
 [assembly: OwinStartup(typeof(DDona.OwinAuth.WebApp.Startup))]
 namespace DDona.OwinAuth.WebApp
@@ -19,6 +20,7 @@ namespace DDona.OwinAuth.WebApp
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
         }
     }
 }
