@@ -24,6 +24,7 @@ namespace DDona.OwinAuth.WebApp.Controllers
         }
 
         [AllowAnonymous]
+        [HttpPost]
         public ActionResult Login(LoginViewModel Model)
         {
             if(
@@ -40,11 +41,18 @@ namespace DDona.OwinAuth.WebApp.Controllers
             }
         }
 
+        public ActionResult Logout()
+        {
+            var ctx = HttpContext.GetOwinContext().Authentication;
+            ctx.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index");
+        }
+
         private ActionResult decidirUrl(string returnUrl)
         {
             if(string.IsNullOrEmpty(returnUrl))
             {
-                return RedirectToAction("Home", "Index");
+                return RedirectToAction("Index", "Home");
             }
             else
             {
@@ -61,10 +69,12 @@ namespace DDona.OwinAuth.WebApp.Controllers
 
             if(model.Username.Equals("donah"))
             {
+                claims.Add(new Claim(ClaimTypes.Name, "Diego Doná"));
                 claims.Add(new Claim("Permissoes", "1,3"));
             }
             else
             {
+                claims.Add(new Claim(ClaimTypes.Name, "Diogo Doná"));
                 claims.Add(new Claim("Permissoes", "1"));
             }
 
