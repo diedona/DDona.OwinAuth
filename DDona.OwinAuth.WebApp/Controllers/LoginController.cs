@@ -1,7 +1,11 @@
 ﻿using DDona.OwinAuth.WebApp.ViewModel;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 
@@ -27,6 +31,7 @@ namespace DDona.OwinAuth.WebApp.Controllers
                 (Model.Password.Equals("123456") && Model.Username.Equals("donah"))
             )
             {
+                configurarCookie(Model);
                 return decidirUrl(Model.ReturnUrl);
             }
             else
@@ -45,6 +50,34 @@ namespace DDona.OwinAuth.WebApp.Controllers
             {
                 return Redirect(returnUrl);
             }
+        }
+
+        private void configurarCookie(LoginViewModel model)
+        {
+            var claims = new List<Claim>();
+
+            // create *required* claims
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, model.Username));
+
+            if(model.Username.Equals("donah"))
+            {
+                claims.Add(new Claim("Permissoes", "1,3"));
+            }
+            else
+            {
+                claims.Add(new Claim("Permissoes", "1"));
+            }
+
+            var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+            var ctx = HttpContext.GetOwinContext().Authentication;
+
+            // add to user here!
+            ctx.SignIn(new AuthenticationProperties()
+            {
+                AllowRefresh = true,
+                IsPersistent = false,
+                ExpiresUtc = DateTime.UtcNow.AddDays(7)
+            }, identity);
         }
     }
 }

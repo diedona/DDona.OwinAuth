@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace DDona.OwinAuth.WebApp.Controllers
 {
-    public class HomeController : BaseController
+    public class BaseController : Controller
     {
-        // GET: Home
-        public ActionResult Index()
+        protected override void Initialize(RequestContext requestContext)
         {
-            ViewBag.Name = User.Identity.Name;
-            return View();
+            base.Initialize(requestContext);
         }
     }
 }
