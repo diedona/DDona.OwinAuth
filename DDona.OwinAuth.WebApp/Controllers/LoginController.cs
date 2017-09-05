@@ -86,7 +86,7 @@ namespace DDona.OwinAuth.WebApp.Controllers
             {
                 AllowRefresh = true,
                 IsPersistent = false,
-                ExpiresUtc = DateTime.UtcNow.AddDays(7)
+                ExpiresUtc = DateTime.UtcNow.AddSeconds(30)
             }, identity);
         }
     }

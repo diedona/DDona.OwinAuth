@@ -21,6 +21,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>
+                            <a href="@Url.Action("Logout", "Login")">Logout</a>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
